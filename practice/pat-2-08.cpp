@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-unsigned int Calcu(int op, int a, int b)
+float Calcu(float op, float a, float b)
 {
 	switch(op)
 	{
@@ -33,7 +33,7 @@ char Operation(int op)
 			return '!';
 	}
 }
-bool calculate(int a, int b, int c, int d)
+bool calculate(float a, float b, float c, float d)
 {
 	float tmp = 0;
 	for(int i=0; i < 4; i++)
