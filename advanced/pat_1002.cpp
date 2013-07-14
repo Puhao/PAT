@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
-
+#include <stdio.h>
 using namespace std;
 
 #define LEN 1001
@@ -43,8 +43,9 @@ int main()
 	for(int j=LEN - 1; j >=0; j--)
 	{
 		if (Poloy[2][j] != 0)
-			cout << " " << j  << " " << Poloy[2][j];
+			//cout << " " << j  << " " << Poloy[2][j];
+			printf(" %d %.1f",j,Poloy[2][j]);
 	}
-	//cout << endl;
+	cout << endl;
 	return 0;
 }
