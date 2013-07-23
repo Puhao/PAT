@@ -4,18 +4,21 @@
 #include <stdio.h>
 using namespace std;
 #define INF 1000000
-#define N 1000
+#define N 501
 
 int graph[N][N];
 bool visit[N];
 int dist[N];
+int RoadNum[N];
+int RescueNum[N];
+int SaveNum[N];
 
-void dijkstra(int s)
+void dijkstra_emergency(int start, int end)
 {
-	visit[s] = true;
+	visit[start] = true;
 	for (int i=0; i<N; i++)
 	{
-		dist[i] = graph[s][i];
+		dist[i] = graph[start][i];
 	}
 	//把剩下的N-1个顶点依次加入
 	for (int i=1; i<N; i++)
@@ -50,5 +53,6 @@ int main()
 {
 	memset(graph,INF,sizeof(graph));
 	memset(visit,false,sizeof(visit));
+	
 
 }
