@@ -8,13 +8,13 @@
 
 using namespace std;
 
-double set_similarity(set<int> a,set<int> b)
+double set_similarity(vector<int> &a,vector<int> &b)
 {
 	int pub = 0;
-	set<int>::const_iterator it_a, it_b;
+	vector<int>::const_iterator it_a, it_b;
 	it_a = a.begin();
 	it_b = b.begin();
-	while(it_a != a.end() || it_b != b.end())
+	while(it_a != a.end() && it_b != b.end())
 	{
 		if(*it_a == *it_b)
 		{
@@ -32,9 +32,23 @@ double set_similarity(set<int> a,set<int> b)
 	return 100.0 * pub / (a.size() + b.size() - pub);
 }
 
+void print_vector(vector<vector<int> > &v)
+{
+	vector<vector<int> >::const_iterator it;
+	std::vector<int>::const_iterator it_int;
+	for (it = v.begin(); it != v.end(); it++)
+	{
+		for(it_int=it->begin();it_int!=it->end();it_int++)
+		{
+			cout << *it_int << ' ';
+		}
+		cout << endl;
+	}
+	return;
+}
 int main()
 {
-	vector<set<int> > AllSet;
+	vector<vector<int> > AllSet;
 	set<int> TmpSet;
 	int num,cnt;
 	cin >> num;
@@ -49,7 +63,8 @@ int main()
 			cin >> tmp;
 			TmpSet.insert(tmp);
 		}
-		AllSet.push_back(TmpSet);
+		vector<int> OneSet(TmpSet.begin(),TmpSet.end());
+		AllSet.push_back(OneSet);
 		index++;
 	}
 	cin >> num;
@@ -60,6 +75,6 @@ int main()
 		double resutl = set_similarity(AllSet[one-1],AllSet[two-1]);
 		cout << setiosflags(ios::fixed)<< setprecision(1) <<resutl << "%" << endl;
 	}
-
+	//print_vector(AllSet);
 	return 0;
 }
