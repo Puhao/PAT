@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -63,10 +64,10 @@ int main()
 	//Node *tree = CreatTree(0,pos,v,num);
 	//PrintTree(tree);
 	BuildArray(0,pos,v,cbst,num);
-	for(int i=0;i<num;i++)
+	for(int i=0;i<num - 1;i++)
 	{
 		cout << cbst[i] << " ";
 	}
-	cout << endl;
+	cout << cbst[num-1] << endl;
 	return 0;
 }
