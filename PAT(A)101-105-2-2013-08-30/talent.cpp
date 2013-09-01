@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -12,13 +14,29 @@ struct student
 	long long int id;
 	int virtue;
 	int talent;
-	student(long long int i,int v,int t):id(i),virtue(v),talent(t){}
+	int grade;
+	student(long long int i,int v,int t,int g):id(i),virtue(v),talent(t),grade(g){}
 	/* data */
 };
 
-bool compare_less(const student &a,const student &b)
+bool compare_method(const student &a,const student &b)
 {
-	return ((a.virtue + a.talent) > (b.virtue + b.talent));
+	if (a.grade == b.grade)
+	{
+		if ((a.virtue + a.talent) == (b.virtue + b.talent))
+		{
+			if (a.virtue == b.virtue)
+			{
+				return a.id < b.id;
+			}
+			else
+				return a.virtue > b.virtue;
+		}
+		else
+			return ((a.virtue + a.talent) > (b.virtue + b.talent));
+	}
+	else
+		return a.grade < b.grade;
 }
 
 int main()
@@ -29,10 +47,11 @@ int main()
 	long long int id;
 	int virtue;
 	int talent;
-	vector<student> stu[4];
+	vector<student> stu;
 	while(num--)
 	{
-		cin >> id >> virtue >> talent;
+		//cin >> id >> virtue >> talent;
+		scanf("%lld %d %d",&id,&virtue,&talent);
 		if ((virtue < low) || (talent < low))
 		{
 			continue;
@@ -40,34 +59,26 @@ int main()
 		count++;
 		if ((virtue >= high) && (talent >= high))
 		{
-			stu[0].push_back(student(id,virtue,talent));
+			stu.push_back(student(id,virtue,talent,0));
 		}
 		else if ((virtue >= high) && (talent < high))
 		{
-			stu[1].push_back(student(id,virtue,talent));
+			stu.push_back(student(id,virtue,talent,1));
 		}
 		else if ((virtue < high) && (talent < high) && (virtue >= talent))
 		{
-			stu[2].push_back(student(id,virtue,talent));
+			stu.push_back(student(id,virtue,talent,2));
 		}
 		else
 		{
-			stu[3].push_back(student(id,virtue,talent));
+			stu.push_back(student(id,virtue,talent,3));
 		}		
 	}
-	for(int i=0;i<4;i++)
-	{
-		sort(stu[i].begin(), stu[i].end(),compare_less);
-	}
+	sort(stu.begin(), stu.end(),compare_method);
 	cout << count << endl;
-	for(int i=0;i<4;i++)
-	{
-		vector<student>::const_iterator it;
-		for(it = stu[i].begin(); it != stu[i].end(); it++)
-		{
-			cout << it->id << " " << it->virtue << ' ' << it->talent << endl;
-		}
-	}
-
+	vector<student>::const_iterator it;
+	for(it = stu.begin(); it != stu.end(); it++)
+		//cout << it->id << " " << it->virtue << ' ' << it->talent << endl;
+		printf("%lld %d %d\n", it->id,it->virtue,it->talent);
 	return 0;
 }
