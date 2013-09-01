@@ -10,14 +10,26 @@ using namespace std;
 
 double set_similarity(set<int> a,set<int> b)
 {
-	double pub = 0;
-	set<int>::const_iterator it;
-	for (it=a.begin();it!=a.end();it++)
+	int pub = 0;
+	set<int>::const_iterator it_a, it_b;
+	it_a = a.begin();
+	it_b = b.begin();
+	while(it_a != a.end() || it_b != b.end())
 	{
-		if(b.count(*it))
+		if(*it_a == *it_b)
+		{
 			pub++;
+			it_a++;
+			it_b++;
+		}
+		else if(*it_a < *it_b)
+		{
+			it_a++;
+		}
+		else
+			it_b++;
 	}
-	return 100 * pub / (a.size() + b.size() - pub);
+	return 100.0 * pub / (a.size() + b.size() - pub);
 }
 
 int main()
